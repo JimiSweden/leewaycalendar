@@ -5,6 +5,18 @@ export const DashboardContainer = styled.div`
   width: 100%;
 `;
 
+export const DashboardWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+export const ListsWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+`;
+
 export const Title = styled.h1`
   margin-bottom: 16px;
 `;
@@ -24,4 +36,10 @@ export const ListItem = styled.li`
   &:last-child {
     border-bottom: none;
   }
+`;
+
+export const PermissionManagementWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-left: 2rem;
 `;

@@ -26,6 +26,7 @@
 // export default App;
 import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+
 // import PermissionManagement from './PermissionManagement';
 // import Dashboard from './Dashboard';
 import { ICalendar, ITask } from './components/Calendar';
@@ -59,12 +60,12 @@ function App() {
   const loggedInUser = users[0];
 
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={loggedInUser && <Dashboard user={loggedInUser} calendars={calendars} tasks={tasks} />} />
-        <Route path="/permissions" element={loggedInUser && <PermissionManagement item={calendars[0]} users={users} />} />
-      </Routes>
-    </Router>
+      <Router>
+        <Routes>      
+          <Route path="/" element={loggedInUser && <Dashboard user={loggedInUser} calendars={calendars} tasks={tasks} />} />
+          <Route path="/permissions" element={loggedInUser && <PermissionManagement item={calendars[0]} users={users} />} />
+        </Routes>
+      </Router>
   );
 }
 

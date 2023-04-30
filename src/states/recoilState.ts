@@ -1,13 +1,10 @@
 import { atom } from "recoil";
-import { ICalendar } from "../components/Calendar/Calendar";
+import { ICalendar, ITask } from "../components/Calendar";
 
 export interface IUser {
   id: string;
   name: string;
 }
-
-
-
 
 export const usersState = atom<IUser[]>({
   key: "usersState",
@@ -19,3 +16,7 @@ export const calendarState = atom<ICalendar[]>({
   default: [],
 });
 
+export const tasksWherePermissionIsBeingManaged = atom<ITask[]>({
+  key: 'tasksBeingManaged',
+  default: [],
+});
