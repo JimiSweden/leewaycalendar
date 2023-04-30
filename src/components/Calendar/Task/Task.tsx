@@ -7,7 +7,7 @@ import { IUserPermission } from '../../UserManagement/UserPermission';
  */
 export interface ITask {
    id: string;
-   title: string;
+   title: string;   
    description: string;
    startTime: Date;
    endTime: Date;

@@ -3,23 +3,21 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { Provider } from "react-redux";
+import store from "./states/store";
 
-import {
-  RecoilRoot,
-  atom,
-  selector,
-  useRecoilState,
-  useRecoilValue,
-} from 'recoil';
+import {  RecoilRoot} from 'recoil';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
   <React.StrictMode>
-    <RecoilRoot>
-    <App />
-    </RecoilRoot>
+     <Provider store={store}>
+      <RecoilRoot>
+      <App />
+      </RecoilRoot>
+    </Provider>
   </React.StrictMode>
 );
 

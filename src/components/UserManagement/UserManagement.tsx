@@ -18,19 +18,23 @@ export function share(item: ICalendar | ITask): string {
   return `${BaseUrl}/${item.id}`;
 }
 
- /** Update user permissions for a calendar or task */
+ /** Update user permissions for a calendar or task 
+  * TODO : consolidate in permissionService ? 
+ */
 export function updateUserPermissions(
   item: ICalendar | ITask,
   userId: string,
   newRole: UserRole
 ): void {
-  const existingPermission = item.permissions.find((perm) => perm.userId === userId);
+  let existingPermission = item.permissions.find((perm) => perm.userId === userId);
 
+  
   if (existingPermission) {
-    existingPermission.role = newRole;
+   //remove existing permission from array
+   item.permissions = item.permissions.filter((perm) => perm.userId !== userId);
+   item.permissions.push({ userId, role: newRole });
+   //  existingPermission.role = newRole;
   } else {
     item.permissions.push({ userId, role: newRole });
   }
 }
-
-/** Remove user permissions for a calendar or task */

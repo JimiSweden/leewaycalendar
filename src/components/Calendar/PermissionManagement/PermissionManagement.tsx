@@ -1,22 +1,12 @@
-
-// 
-// import { CalendarPermissionManagementWrapper } from './PermissionManagement.styled';
-// interface CalendarPermissionManagementProps {}
-// const CalendarPermissionManagement: FC<CalendarPermissionManagementProps> = () => (
-//  <CalendarPermissionManagementWrapper>
-//     CalendarPermissionManagement Component
-//  </CalendarPermissionManagementWrapper>
-// );
-
-
-//--
-
 import React, { useState } from 'react';
-import { IUser } from '../../../../states/recoilState';
-import { share, updateUserPermissions } from '../../../UserManagement/UserManagement';
-import { UserRole } from '../../../UserManagement/UserRole';
-import { ICalendar } from '../../Calendar';
-import { ITask } from '../../Task/Task';
+import { useRecoilState } from 'recoil';
+import { share } from '../../UserManagement/UserManagement';
+
+import { tasksWherePermissionIsBeingManaged, usersState } from '../../../states/recoilState';
+
+import { UserRole } from '../../UserManagement/UserRole';
+import { ICalendar, ITask } from '../../Calendar';
+
 
 import {
   Container,
@@ -31,11 +21,18 @@ import {
 
 interface PermissionManagementProps {
   item: ICalendar | ITask;
-  users: IUser[];
+//   users: IUser[];
 }
 
-const PermissionManagement: React.FC<PermissionManagementProps> = ({ item, users }) => {
-  const [sharedLink, setSharedLink] = useState('');
+// const PermissionManagement: React.FC<PermissionManagementProps> = ({ item, users }) => {
+const PermissionManagement: React.FC<PermissionManagementProps> = ({ item }) => {
+  
+  const [users] = useRecoilState(usersState);
+  //TODO: move to service
+  const [managedTasks, setManagedTasks] = useRecoilState(tasksWherePermissionIsBeingManaged);
+
+  const displayName = item.hasOwnProperty("name") ? (item as ICalendar).name : (item as ITask).title;
+   const [sharedLink, setSharedLink] = useState('');
 
   const handleShare = () => {
     const link = share(item);
@@ -44,22 +41,55 @@ const PermissionManagement: React.FC<PermissionManagementProps> = ({ item, users
 
   const handleRoleChange = (userId: string, event: React.ChangeEvent<HTMLSelectElement>) => {
     const newRole = event.target.value as UserRole;
-    updateUserPermissions(item, userId, newRole);
+    
+    
+    updateTaskPermissions(item.id, userId, newRole);
+  };
+
+/** Update user permissions for a calendar or task of the current user
+ *  TODO: replace with permissionService and redux 
+ * 
+*/
+const updateTaskPermissions = (taskId: string, userId: string, newRole: UserRole) => {
+        
+  //const itemI = item.hasOwnProperty("name") ? (item as ICalendar).name : (item as ITask).title;
+
+    const updatedTasks = managedTasks.map((task) => {
+      if (task.id === taskId) {
+        let existingPermission = task.permissions.find((perm) => perm.userId === userId);
+  
+        if (existingPermission) {
+          const updatedPermissions = task.permissions.filter((perm) => perm.userId !== userId);
+          updatedPermissions.push({ userId, role: newRole });
+  
+          return {
+            ...task,
+            permissions: updatedPermissions,
+          };
+        }
+      }
+      return task;
+    });
+  
+    setManagedTasks(updatedTasks);
   };
 
   return (
     <Container>
-      <ShareButton onClick={handleShare}>Share</ShareButton>
+      
       {sharedLink && <SharedLink>Shared link: {sharedLink}</SharedLink>}
-      <h2>User Permissions</h2>
+      <h3>User Permissions | {displayName} </h3>
       <Table>
         <thead>
           <tr>
             <TableHeader>User</TableHeader>
             <TableHeader>Role</TableHeader>
+            <TableHeader>Actions</TableHeader>
           </tr>
         </thead>
         <tbody>
+         {users.length === 0 && "no users loaded"}
+
           {users.map((user) => (
             <tr key={user.id}>
               <TableCell>{user.name}</TableCell>
@@ -73,6 +103,9 @@ const PermissionManagement: React.FC<PermissionManagementProps> = ({ item, users
                   <option value={UserRole.CONTRIBUTOR}>Contributor</option>
                   <option value={UserRole.ADMINISTRATOR}>Administrator</option>
                 </Select>
+              </TableCell>
+              <TableCell>
+              <ShareButton onClick={handleShare}>Share</ShareButton>
               </TableCell>
             </tr>
           ))}

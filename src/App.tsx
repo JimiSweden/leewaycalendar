@@ -33,11 +33,13 @@ import { ICalendar, ITask } from './components/Calendar';
 
 import { fetchUsers as getUsers, fetchCalendars as getCalendars, fetchTasks as getTasks } from './services/api';
 import Dashboard from './components/Dashboard/Dashboard';
-import PermissionManagement from './components/Calendar/PermissionManagement/Calendar/PermissionManagement';
-import { IUser } from './states/recoilState';
+import PermissionManagement from './components/Calendar/PermissionManagement/PermissionManagement';
+import { usersState } from './states/recoilState';
+import { useRecoilState } from 'recoil';
 
 function App() {
-  const [users, setUsers] = useState<IUser[]>([]);
+  const [users, setUsers] = useRecoilState(usersState);
+  // const [users, setUsers] = useState<IUser[]>([]);
   const [calendars, setCalendars] = useState<ICalendar[]>([]);
   const [tasks, setTasks] = useState<ITask[]>([]);
 
@@ -56,14 +58,19 @@ function App() {
     fetchData();
   }, []);
 
-  // Set the logged-in user
+  /**  Set the logged-in user - 
+   * TODO: get from auth service
+  */
   const loggedInUser = users[0];
 
   return (
       <Router>
         <Routes>      
           <Route path="/" element={loggedInUser && <Dashboard user={loggedInUser} calendars={calendars} tasks={tasks} />} />
-          <Route path="/permissions" element={loggedInUser && <PermissionManagement item={calendars[0]} users={users} />} />
+          {/* TODO: permissions for all calendars */}
+          <Route path="/permissions" element={
+            loggedInUser 
+            && <PermissionManagement item={calendars[0]} />} />
         </Routes>
       </Router>
   );

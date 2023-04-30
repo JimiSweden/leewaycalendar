@@ -38,6 +38,11 @@ export const ListItem = styled.li`
   }
 `;
 
+export const TasksAndPermissionManagementWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  margin-left: 2rem;
+`;
 export const PermissionManagementWrapper = styled.div`
   display: flex;
   flex-direction: column;

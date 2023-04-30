@@ -11,11 +11,12 @@ import {
     EnvironmentMessage,
     DashboardWrapper,
     PermissionManagementWrapper,
+    TasksAndPermissionManagementWrapper,
 } from './Dashboard.styled';
 import { IUser, tasksWherePermissionIsBeingManaged } from '../../states/recoilState';
 import TaskList from './TaskList/TaskList';
 import CalendarList from './CalendarList/CalendarList';
-import PermissionManagement from '../Calendar/PermissionManagement/Calendar/PermissionManagement';
+import PermissionManagement from '../Calendar/PermissionManagement/PermissionManagement';
 import { useRecoilState, useRecoilValue } from 'recoil';
 
 interface DashboardProps {
@@ -49,7 +50,7 @@ const Dashboard: React.FC<DashboardProps> = ({ user, calendars, tasks }) => {
    //  };
 
   const [managedTasks] = useRecoilState(tasksWherePermissionIsBeingManaged);
-
+  let managedTasksOrdered = managedTasks?.sort((a, b) => a.title.localeCompare(b.title)).slice();
     
 
     return (
@@ -70,7 +71,11 @@ const Dashboard: React.FC<DashboardProps> = ({ user, calendars, tasks }) => {
                 onOpenCalendar={onOpenCalendar}
                 onShareCalendar={onShareCalendar}
             ></CalendarList>
-            <Title>Your Tasks</Title>
+
+            <TasksAndPermissionManagementWrapper>
+               
+            
+            {/* <Title>Your Tasks</Title> */}
             {/* <List>
                 {userTasks.map(task => (
                     <ListItem key={task.id}>
@@ -85,12 +90,13 @@ const Dashboard: React.FC<DashboardProps> = ({ user, calendars, tasks }) => {
                
             ></TaskList>
             <PermissionManagementWrapper>
-               {managedTasks.map((task) => (
-                  <PermissionManagement key={task.id} item={task} users={[]} />
+               {managedTasksOrdered.map((task) => (
+                  <PermissionManagement key={task.id} item={task} />
                ))}
                </PermissionManagementWrapper>
 
             {/* {showPermissionManagement && <PermissionManagement item={undefined} users={[]} />} */}
+            </TasksAndPermissionManagementWrapper>
         </DashboardWrapper>
     );
 };
