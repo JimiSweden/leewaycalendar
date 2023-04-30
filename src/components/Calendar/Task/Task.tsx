@@ -1,7 +1,15 @@
 import React, { FC } from 'react';
 import { TaskWrapper } from './Task.styled';
 import { IUserPermission } from '../../UserManagement/UserPermission';
+import { ICalendar } from '../Calendar';
 
+/**  Type guard for ITask */
+export function isTask(item: ICalendar | ITask): item is ITask {
+   return (item as ITask).description !== undefined;
+ }
+ 
+
+ 
 /**
  * TODO: ? add calendarId to ITask
  */
@@ -9,8 +17,8 @@ export interface ITask {
    id: string;
    title: string;   
    description: string;
-   startTime: Date;
-   endTime: Date;
+   startTime: string;
+   endTime: string;
    owner: string; // User ID
    // participants: string[]; // Array of User IDs
    /**

@@ -20,12 +20,16 @@ export const calendarsState = atom<ICalendar[]>({
 
 /** all tasks available to select for the current user */
 export const tasksState = atom<ITask[]>({
-    key: 'tasksBeingManaged',
+    key: 'tasks',
     default: [],
   });
   
 
 export const tasksWherePermissionIsBeingManaged = atom<ITask[]>({
   key: 'tasksBeingManaged',
+  default: [],
+});
+export const calendarsWherePermissionIsBeingManaged = atom<ICalendar[]>({
+  key: 'calendarsBeingManaged',
   default: [],
 });

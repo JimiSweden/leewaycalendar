@@ -3,6 +3,12 @@ import { CalendarWrapper } from './Calendar.styled';
 import { ITask } from './Task/Task';
 import { IUserPermission } from '../UserManagement/UserPermission';
 
+/** Type guard for ICalendar */
+export function isCalendar(item: ICalendar | ITask): item is ICalendar {
+   return (item as ICalendar).name !== undefined;
+ }
+ 
+ 
 export interface ICalendar {
    id: string;
    name: string;

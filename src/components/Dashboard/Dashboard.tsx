@@ -50,7 +50,7 @@ const Dashboard: React.FC<DashboardProps> = ({ user, calendars, tasks }) => {
    //  };
 
   const [managedTasks] = useRecoilState(tasksWherePermissionIsBeingManaged);
-  let managedTasksOrdered = managedTasks?.sort((a, b) => a.title.localeCompare(b.title)).slice();
+  let managedTasksOrdered = managedTasks?.slice().sort((a, b) => a.title.localeCompare(b.title));
     
 
     return (

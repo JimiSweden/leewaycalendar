@@ -37,26 +37,58 @@ import PermissionManagement from './components/Calendar/PermissionManagement/Per
 import { usersState } from './states/recoilState';
 import { useRecoilState } from 'recoil';
 
+import { useSelector, useDispatch } from 'react-redux';
+import { RootState, AppDispatch } from './states/store';
+import { setUsers } from './states/reducers/usersReducer';
+import { setCalendars } from './states/reducers/calendarsReducer';
+import { setTasks } from './states/reducers/tasksReducer';
+
 function App() {
-  const [users, setUsers] = useRecoilState(usersState);
-  // const [users, setUsers] = useState<IUser[]>([]);
-  const [calendars, setCalendars] = useState<ICalendar[]>([]);
-  const [tasks, setTasks] = useState<ITask[]>([]);
+  // const [users, setUsers] = useRecoilState(usersState);
+  // // const [users, setUsers] = useState<IUser[]>([]);
+  // const [calendars, setCalendars] = useState<ICalendar[]>([]);
+  // const [tasks, setTasks] = useState<ITask[]>([]);
+
+  const users = useSelector((state: RootState) => state.users);
+  const calendars = useSelector((state: RootState) => state.calendars);
+  const tasks = useSelector((state: RootState) => state.tasks);
+
+  const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
     // Fetch data from API
-    const fetchData = async () => {
-      const fetchedUsers = await getUsers();
-      const fetchedCalendars = await getCalendars();
-      const fetchedTasks = await getTasks();
+    // const fetchData = async () => {
+      // const fetchedUsers = await getUsers();
+      // const fetchedCalendars = await getCalendars();
+      // const fetchedTasks = await getTasks();
 
-      setUsers(fetchedUsers);
-      setCalendars(fetchedCalendars);
-      setTasks(fetchedTasks);
-    };
+      // setUsers(fetchedUsers);
+      // setCalendars(fetchedCalendars);
+      // setTasks(fetchedTasks);
+    // };
+    // fetchData();
 
-    fetchData();
-  }, []);
+       // Fetch data from an API or use mock data, then update the Redux state
+      const fetchUsers = async () => {
+        const fetchedUsers = await getUsers();
+        dispatch(setUsers(fetchedUsers));
+      };
+
+      const fetchCalendars = async () => {
+        const fetchedCalendars = await getCalendars();
+        dispatch(setCalendars(fetchedCalendars));
+      };
+
+      const fetchTasks = async () => {
+        const fetchedTasks = await getTasks();
+        dispatch(setTasks(fetchedTasks));
+      };
+
+
+    fetchUsers();
+    fetchCalendars();
+    fetchTasks();
+  }, [dispatch]);
 
   /**  Set the logged-in user - 
    * TODO: get from auth service

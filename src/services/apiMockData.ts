@@ -63,139 +63,139 @@ export const tasks: ITask[] = [
       id: "c1d0c3f3-c95d-41e3-89a7-7d0078f3e3f3",
       title: "Task 1",
       description: "Description for Task 1",
-      startTime: new Date("2023-05-01T09:00:00"),
-      endTime: new Date("2023-05-01T10:00:00"),
+      startTime: new Date("2023-05-01T09:00:00").toISOString(),
+      endTime: new Date("2023-05-01T10:00:00").toISOString(),
       owner: Anna.id,
       permissions: [
-        { userId: Anna.id, role: UserRole.ADMINISTRATOR },
-        { userId: Bjorn.id, role: UserRole.CONTRIBUTOR },
-        { userId: Carl.id, role: UserRole.CONTRIBUTOR }
+        { userId: Anna.id, userName: Anna.name, role: UserRole.ADMINISTRATOR },
+        { userId: Bjorn.id, userName: Bjorn.name, role: UserRole.CONTRIBUTOR },
+        { userId: Carl.id, userName: Carl.name, role: UserRole.CONTRIBUTOR }
       ]      
     },
     {
       id: "c2d0e3f3-c96d-41d3-89b7-7d1078f3e3f4",
       title: "Task 2",
       description: "Description for Task 2",
-      startTime: new Date("2023-05-01T14:00:00"),
-      endTime: new Date("2023-05-01T15:00:00"),
+      startTime: new Date("2023-05-01T14:00:00").toISOString(),
+      endTime: new Date("2023-05-01T15:00:00").toISOString(),
       owner: Bjorn.id,      
       permissions: [
-        { userId: Anna.id, role: UserRole.CONTRIBUTOR },
-        { userId: Bjorn.id, role: UserRole.ADMINISTRATOR },
-        { userId: David.id, role: UserRole.CONTRIBUTOR }
+        { userId: Anna.id, userName:Anna.name, role: UserRole.CONTRIBUTOR },
+        { userId: Bjorn.id, userName:Bjorn.name, role: UserRole.ADMINISTRATOR },
+        { userId: David.id, userName:David.name, role: UserRole.CONTRIBUTOR }
       ]    
     },
     {
       id: "c3d0c3f3-c95d-41e3-89a7-7d0078f3e3f5",
       title: "Task 3",
       description: "Description for Task 3",
-      startTime: new Date("2023-05-02T10:00:00"),
-      endTime: new Date("2023-05-02T11:00:00"),
+      startTime: new Date("2023-05-02T10:00:00").toISOString(),
+      endTime: new Date("2023-05-02T11:00:00").toISOString(),
       owner: Carl.id,      
       permissions: [
-        { userId: Carl.id, role: UserRole.ADMINISTRATOR },
-        { userId: Elsa.id, role: UserRole.VIEWER },
-        { userId: David.id, role: UserRole.CONTRIBUTOR }
+        { userId: Carl.id,userName:Carl.name, role: UserRole.ADMINISTRATOR },
+        { userId: Elsa.id, userName:Elsa.name,role: UserRole.VIEWER },
+        { userId: David.id, userName:David.name, role: UserRole.CONTRIBUTOR }
       ]    
     },
     {
       id: "c4d0e3f3-c96d-41d3-89b7-7d1078f3e3f6",
       title: "Task 4",
       description: "Description for Task 4",
-      startTime: new Date("2023-05-02T15:00:00"),
-      endTime: new Date("2023-05-02T16:00:00"),
+      startTime: new Date("2023-05-02T15:00:00").toISOString(),
+      endTime: new Date("2023-05-02T16:00:00").toISOString(),
       owner: David.id,
     //   participants: [Anna.id, Carl.id],
         permissions: [
-        { userId: Carl.id, role: UserRole.ADMINISTRATOR },
-        { userId: Elsa.id, role: UserRole.VIEWER },
-        { userId: Anna.id, role: UserRole.VIEWER },
-        { userId: David.id, role: UserRole.ADMINISTRATOR }
+        { userId: Carl.id,userName:Carl.name, role: UserRole.ADMINISTRATOR },
+        { userId: Elsa.id, userName:Elsa.name,role: UserRole.VIEWER },
+        { userId: Anna.id, userName:Anna.name, role: UserRole.VIEWER },
+        { userId: David.id,userName:David.name, role: UserRole.ADMINISTRATOR }
       ]    
     },
     {
       id: "c5d0c3f3-c95d-41e3-89a7-7d0078f3e3f7",
       title: "Task 5",
       description: "Description for Task 5",
-      startTime: new Date("2023-05-03T09:00:00"),
-      endTime: new Date("2023-05-03T10:00:00"),
+      startTime: new Date("2023-05-03T09:00:00").toISOString(),
+      endTime: new Date("2023-05-03T10:00:00").toISOString(),
       owner: Elsa.id,
       //participants: [Bjorn.id, Carl.id, David.id],
       permissions: [
-        { userId: Carl.id, role: UserRole.CONTRIBUTOR },
-        { userId: Elsa.id, role: UserRole.ADMINISTRATOR },
-        { userId: David.id, role: UserRole.CONTRIBUTOR },
-        { userId: Bjorn.id, role: UserRole.CONTRIBUTOR }
+        { userId: Carl.id, userName:Carl.name, role: UserRole.CONTRIBUTOR },
+        { userId: Elsa.id, userName:Elsa.name,role: UserRole.ADMINISTRATOR },
+        { userId: David.id,userName:David.name, role: UserRole.CONTRIBUTOR },
+        { userId: Bjorn.id,userName:Bjorn.name, role: UserRole.CONTRIBUTOR }
       ]    
     },
     {
       id: "c6d0e3f3-c96d-41d3-89b7-7d1078f3e3f8",
       title: "Task 6",
       description: "Description for Task 6",
-      startTime: new Date("2023-05-03T14:00:00"),
-      endTime: new Date("2023-05-03T15:00:00"),
+      startTime: new Date("2023-05-03T14:00:00").toISOString(),
+      endTime: new Date("2023-05-03T15:00:00").toISOString(),
       owner: Anna.id,
         //   participants: [Bjorn.id, David.id],
         permissions: [
-        { userId: Anna.id, role: UserRole.ADMINISTRATOR },
-        { userId: Elsa.id, role: UserRole.VIEWER },
-        { userId: David.id, role: UserRole.CONTRIBUTOR }
+        { userId: Anna.id, userName:Anna.name, role: UserRole.ADMINISTRATOR },
+        { userId: Elsa.id, userName:Elsa.name,role: UserRole.VIEWER },
+        { userId: David.id, userName:David.name, role: UserRole.CONTRIBUTOR }
       ]    
     },
     {
         id: "c7d0c3f3-c95d-41e3-89a7-7d0078f3e3f9",
         title: "Task 7",
         description: "Description for Task 7",
-        startTime: new Date("2023-05-04T10:00:00"),
-        endTime: new Date("2023-05-04T11:00:00"),
+        startTime: new Date("2023-05-04T10:00:00").toISOString(),
+        endTime: new Date("2023-05-04T11:00:00").toISOString(),
         owner: Carl.id,
         // participants: [Anna.id, Bjorn.id, Elsa.id],
         permissions: [
-            { userId: Carl.id, role: UserRole.ADMINISTRATOR },
-            { userId: Elsa.id, role: UserRole.VIEWER },
-            { userId: David.id, role: UserRole.CONTRIBUTOR }
+            { userId: Carl.id,userName:Carl.name, role: UserRole.ADMINISTRATOR },
+            { userId: Elsa.id, userName:Elsa.name, role: UserRole.VIEWER },
+            { userId: David.id, userName:David.name,role: UserRole.CONTRIBUTOR }
           ]    
       },
       {
         id: "c8d0e3f3-c96d-41d3-89b7-7d1078f3e3fa",
         title: "Task 8",
         description: "Description for Task 8",
-        startTime: new Date("2023-05-04T14:00:00"),
-        endTime: new Date("2023-05-04T15:00:00"),
+        startTime: new Date("2023-05-04T14:00:00").toISOString(),
+        endTime: new Date("2023-05-04T15:00:00").toISOString(),
         owner: David.id,
         // participants: [Anna.id, Carl.id, Elsa.id],
         permissions: [
-            { userId: Carl.id, role: UserRole.VIEWER },
-            { userId: Elsa.id, role: UserRole.VIEWER },
-            { userId: David.id, role: UserRole.ADMINISTRATOR }
+            { userId: Carl.id, userName:Carl.name,role: UserRole.VIEWER },
+            { userId: Elsa.id, userName:Elsa.name, role: UserRole.VIEWER },
+            { userId: David.id,userName:David.name, role: UserRole.ADMINISTRATOR }
           ]    
       },
       {
         id: "c9d0c3f3-c95d-41e3-89a7-7d0078f3e3fb",
         title: "Task 9",
         description: "Description for Task 9",
-        startTime: new Date("2023-05-05T09:00:00"),
-        endTime: new Date("2023-05-05T10:00:00"),
+        startTime: new Date("2023-05-05T09:00:00").toISOString(),
+        endTime: new Date("2023-05-05T10:00:00").toISOString(),
         owner: Elsa.id,
         // participants: [Bjorn.id, David.id],
         permissions: [
-            { userId: Carl.id, role: UserRole.VIEWER },
-            { userId: Elsa.id, role: UserRole.ADMINISTRATOR },
-            { userId: David.id, role: UserRole.CONTRIBUTOR }
+            { userId: Carl.id, userName:Carl.name, role: UserRole.VIEWER },
+            { userId: Elsa.id, userName:Elsa.name,role: UserRole.ADMINISTRATOR },
+            { userId: David.id, userName:David.name,role: UserRole.CONTRIBUTOR }
           ]    
       },
       {
         id: "c10d0e3f3-c96d-41d3-89b7-7d1078f3e3fc",
         title: "Task 10",
         description: "Description for Task 10",
-        startTime: new Date("2023-05-05T15:00:00"),
-        endTime: new Date("2023-05-05T16:00:00"),
+        startTime: new Date("2023-05-05T15:00:00").toISOString(),
+        endTime: new Date("2023-05-05T16:00:00").toISOString(),
         owner: Anna.id,
         // participants: [Carl.id, Elsa.id],
         permissions: [
-            { userId: Anna.id, role: UserRole.ADMINISTRATOR },
-            { userId: Elsa.id, role: UserRole.CONTRIBUTOR },
-            { userId: David.id, role: UserRole.CONTRIBUTOR }
+            { userId: Anna.id, userName:Anna.name, role: UserRole.ADMINISTRATOR },
+            { userId: Elsa.id, userName:Elsa.name,role: UserRole.CONTRIBUTOR },
+            { userId: David.id, userName:David.name,role: UserRole.CONTRIBUTOR }
           ]    
       },
     ];
@@ -207,9 +207,9 @@ export const calendars: ICalendar[] = [
       name: 'Family Calendar',
       owner: Anna.id,
       permissions: [
-        { userId: Anna.id, role: UserRole.ADMINISTRATOR },
-        { userId: Erik.id, role: UserRole.CONTRIBUTOR },
-        { userId: Karin.id, role: UserRole.VIEWER },
+        { userId: Anna.id,userName:Anna.name, role: UserRole.ADMINISTRATOR },
+        { userId: Erik.id, userName:Erik.name,role: UserRole.CONTRIBUTOR },
+        { userId: Karin.id, userName:Karin.name,role: UserRole.VIEWER },
       ],
       tasks: []
     },
@@ -218,9 +218,9 @@ export const calendars: ICalendar[] = [
       name: 'Work Calendar',
       owner: Erik.id,
       permissions: [
-        { userId: Erik.id, role: UserRole.ADMINISTRATOR },
-        { userId: Oskar.id, role: UserRole.CONTRIBUTOR },
-        { userId: Sofia.id, role: UserRole.VIEWER },
+        { userId: Erik.id, userName:Erik.name, role: UserRole.ADMINISTRATOR },
+        { userId: Oskar.id, userName:Oskar.name, role: UserRole.CONTRIBUTOR },
+        { userId: Sofia.id, userName:Sofia.name,role: UserRole.VIEWER },
     ],
     tasks: []
     },
@@ -229,10 +229,10 @@ export const calendars: ICalendar[] = [
       name: 'Team A Calendar',
       owner: Anna.id,
       permissions: [
-        { userId: Anna.id, role: UserRole.ADMINISTRATOR },
-        { userId: Erik.id, role: UserRole.CONTRIBUTOR },
-        { userId: Karin.id, role: UserRole.VIEWER },
-        { userId: Oskar.id, role: UserRole.CONTRIBUTOR },
+        { userId: Anna.id,userName:Anna.name, role: UserRole.ADMINISTRATOR },
+        { userId: Erik.id, userName:Erik.name,role: UserRole.CONTRIBUTOR },
+        { userId: Karin.id, userName:Karin.name,role: UserRole.VIEWER },
+        { userId: Oskar.id, userName:Oskar.name,role: UserRole.CONTRIBUTOR },
     ],
     tasks: []
     },
@@ -241,9 +241,9 @@ export const calendars: ICalendar[] = [
       name: 'Team B Calendar',
       owner: Sofia.id,
       permissions: [
-        { userId: Sofia.id, role: UserRole.ADMINISTRATOR },
-        { userId: Karin.id, role: UserRole.CONTRIBUTOR },
-        { userId: Oskar.id, role: UserRole.VIEWER },
+        { userId: Sofia.id,userName:Sofia.name, role: UserRole.ADMINISTRATOR },
+        { userId: Karin.id, userName:Karin.name,role: UserRole.CONTRIBUTOR },
+        { userId: Oskar.id,userName:Oskar.name, role: UserRole.VIEWER },
     ],
     tasks: []
     },
@@ -252,7 +252,7 @@ export const calendars: ICalendar[] = [
       name: "Anna's Private Calendar",
       owner: Anna.id,
       permissions: [
-        { userId: Anna.id, role: UserRole.ADMINISTRATOR},
+        { userId: Anna.id,userName:Anna.name, role: UserRole.ADMINISTRATOR},
     ],
     tasks: []
     },
@@ -261,7 +261,7 @@ export const calendars: ICalendar[] = [
       name: "Eriks Private Calendar",
       owner: Erik.id,
       permissions: [
-        { userId: Erik.id, role: UserRole.ADMINISTRATOR },
+        { userId: Erik.id, userName:Erik.name,role: UserRole.ADMINISTRATOR },
     ],
     tasks: []
     },

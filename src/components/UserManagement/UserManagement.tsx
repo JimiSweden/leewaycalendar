@@ -2,6 +2,7 @@ import React, { FC } from 'react';
 import { UserManagementWrapper } from './UserManagement.styled';
 import { UserRole } from './UserPermission';
 import { ICalendar, ITask } from '../Calendar';
+import { IUser } from '../../states/recoilState';
 
 
 interface UserManagementProps {}
@@ -23,18 +24,18 @@ export function share(item: ICalendar | ITask): string {
  */
 export function updateUserPermissions(
   item: ICalendar | ITask,
-  userId: string,
+  user: IUser,
   newRole: UserRole
 ): void {
-  let existingPermission = item.permissions.find((perm) => perm.userId === userId);
+  let existingPermission = item.permissions.find((perm) => perm.userId === user.id);
 
   
   if (existingPermission) {
    //remove existing permission from array
-   item.permissions = item.permissions.filter((perm) => perm.userId !== userId);
-   item.permissions.push({ userId, role: newRole });
+   item.permissions = item.permissions.filter((perm) => perm.userId !== user.id);
+   item.permissions.push({ ...existingPermission, role: newRole });
    //  existingPermission.role = newRole;
   } else {
-    item.permissions.push({ userId, role: newRole });
+    item.permissions.push({ userId: user.id, userName:user.name, role: newRole });
   }
 }

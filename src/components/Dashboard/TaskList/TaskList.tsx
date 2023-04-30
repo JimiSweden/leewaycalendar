@@ -50,7 +50,7 @@ const TaskList: FC<TaskListProps> = ({ tasks}) => {
 
               {task.permissions.map((permission) => (
                 <li key={`${task.id}-${permission.userId}`}>
-                  {permission.userId} - {permission.role}
+                  {permission.userId} - {permission.role} - {permission.userName}
                 </li>
               ))}
             </ul>
