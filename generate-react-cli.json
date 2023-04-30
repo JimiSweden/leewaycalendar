@@ -8,11 +8,11 @@
       "withStyle": true,
       "withTest": false,
       "withStory": true,
-      "withLazy": true
+      "withLazy": false
     },
     "page": {
       "path": "src/pages",
-      "withLazy": true,
+      "withLazy": false,
       "withStory": false,
       "withStyle": true,
       "withTest": false
