@@ -27,7 +27,7 @@ interface CalendarListProps {
             <ul>
                {/* TODO: user name from UserPermission 
                - and perhaps a userPersmission component to reuse*/}
-              {calendar.permissions.map((permission) => (
+              {calendar.permissions?.map((permission) => (
                 <li key={`${calendar.id}-${permission.userId}`}>
                   {permission.userId} - {permission.role}
                 </li>

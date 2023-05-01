@@ -1,19 +1,18 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 import { CalendarWrapper } from './Calendar.styled';
-import { ITask } from './Task/Task';
-import { IUserPermission } from '../UserManagement/UserPermission';
+import { IUserPermission, ITask } from '../types';
 
 /** Type guard for ICalendar */
 export function isCalendar(item: ICalendar | ITask): item is ICalendar {
    return (item as ICalendar).name !== undefined;
- }
- 
+ } 
  
 export interface ICalendar {
+   isCalendar: boolean;
    id: string;
    name: string;
    tasks: ITask[];
-   owner: string; // User ID
+   ownerId: string; // User ID
  
    //todo ?: replace with UserPermission[] and participants: string[]
    // sharedUsers: {
@@ -25,6 +24,27 @@ export interface ICalendar {
    permissions: IUserPermission[];
  }
 
+export class CalendarClass implements ICalendar {
+    constructor(
+      id: string,
+      name: string,
+      tasks: ITask[],
+      ownerId: string,
+      permissions: IUserPermission[]
+    ) {
+      this.id = id;
+      this.name = name;
+      this.tasks = tasks;
+      this.ownerId = ownerId;
+      this.permissions = permissions;
+    }
+    isCalendar: boolean = true;
+    id: string;
+    name: string;
+    tasks: ITask[];
+    ownerId: string;
+    permissions: IUserPermission[];
+  }
  
 interface CalendarProps {}
 

@@ -1,7 +1,8 @@
 import styled from 'styled-components';
 
 export const TaskListWrapper = styled.div`
-  // Add your styles here
+  /* min-width: 600px; */
+  //max-width: 700px; //TODO: media query, + flexbox  
 `;
 
 export const List = styled.ul`
@@ -11,6 +12,8 @@ export const List = styled.ul`
 
 export const TaskListItem = styled.li`
   padding-right: 1rem;
+  /* max-width: 500px; */
+
   /* padding: 8px 0; */
   /* border-top: none;
   &:first-child {
@@ -29,6 +32,7 @@ export const Button = styled.button`
 export const TasksAndPermissionManagementWrapper = styled.div`
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
   margin-left: 2rem;
   padding: 0.5rem 0.5rem 1rem 0;
 

@@ -1,9 +1,5 @@
-import { UserRole } from './UserRole';
+import { UserRole } from "../types";
 
-export interface IUserPermission {
-    userId: string;
-    userName: string;
-    role: UserRole;
-}
+
 
 export { UserRole };

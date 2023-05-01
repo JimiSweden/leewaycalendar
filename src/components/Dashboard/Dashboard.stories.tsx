@@ -1,6 +1,6 @@
 /* eslint-disable */
 // import Dashboard from './Dashboard';
-import { calendars, users } from "../../services/apiMockData";
+import { calendars, users } from "../../states/apiMockData";
 
 import Dashboard from "./Dashboard";
 
@@ -9,7 +9,7 @@ export default {
 };
 
 const Anna = users[0];
-const calendarsMocked = calendars.find((calendar) => calendar.owner === Anna.id);
+const calendarsMocked = calendars.find((calendar) => calendar.ownerId === Anna.id);
 export const Default = () => <Dashboard user={Anna} calendars={[]} tasks={[]} />;
 
 Default.story = {

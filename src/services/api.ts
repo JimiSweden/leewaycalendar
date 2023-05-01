@@ -1,7 +1,7 @@
-import { IUser } from "../states/recoilState";
+import { IUser, ICalendar, ITask, CalendarClass } from "../components/types";
 import { v4 as uuidv4 } from "uuid";
-import { calendars, tasks, users } from "./apiMockData";
-import { ICalendar, ITask } from "../components/Calendar";
+import { calendars, tasks, users } from "../states/apiMockData";
+
 
 // Mock data for users and calendars
 const usersFromMock = users;
@@ -27,7 +27,9 @@ export const createUser = async (username: string): Promise<IUser> => {
 };
 
 export const createCalendar = async (name: string, owner: string): Promise<ICalendar> => {
-  const newCalendar: ICalendar = { id: uuidv4(), name, tasks: [], owner, permissions: [] };
+  
+  const newCalendar = new CalendarClass( uuidv4(), name, [], owner, []);
+
   calendarsMocked.push(newCalendar);
   return newCalendar;
 };

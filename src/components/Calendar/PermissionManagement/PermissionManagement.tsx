@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
 import { useRecoilState } from 'recoil';
-import { share } from '../../UserManagement/UserManagement';
-import { calendarsWherePermissionIsBeingManaged, tasksWherePermissionIsBeingManaged, usersState } from '../../../states/recoilState';
+import { UpdatePermissionCommand, share, updateTaskOrCalendarPermissions } from './permissionService';
+import { 
+  calendarsWherePermissionIsBeingManaged, 
+  tasksWherePermissionIsBeingManaged 
+} from '../../../states/recoilState';
 
-import { UserRole } from '../../UserManagement/UserRole';
+import { UserRole } from "../../types";
 import { ICalendar, ITask, isTask } from '../../Calendar';
 
 
@@ -20,6 +23,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../../states/store';
 import { updateCalendar } from '../../../states/reducers/calendarsReducer';
 import { updateTask } from '../../../states/reducers/tasksReducer';
+import { IUser } from '../../types';
 
 
 interface PermissionManagementProps {
@@ -45,61 +49,29 @@ const PermissionManagement: React.FC<PermissionManagementProps> = ({ item }) => 
     setSharedLink(link);
   };
 
-  const handleRoleChange = (userId: string, event: React.ChangeEvent<HTMLSelectElement>) => {
+  const  handleTransferOwnership = () =>  {    
+    throw new Error('Function not implemented.');
+  }
+
+  const handleRoleChange = (user: IUser, event: React.ChangeEvent<HTMLSelectElement>) => {
     const newRole = event.target.value as UserRole;
         
     if(isTask(item)){
-      const updatedTasks = updateTaskOrCalendarPermissions(item, userId, newRole, managedTasks) as ITask[];
+      const updatedTasks = updateTaskOrCalendarPermissions( 
+        managedTasks,
+        new UpdatePermissionCommand(item, user, newRole)) as ITask[];
       setManagedTasks(updatedTasks); // perhaps not needed, or can be replaced with reducer/ slice deriving from tasks
       handleUpdateTask(updatedTasks.filter((task) => task.id === item.id)[0])
     } else {
-      const updatedCalendars = updateTaskOrCalendarPermissions(item, userId, newRole, managedCalendars) as ICalendar[];
+      const updatedCalendars = updateTaskOrCalendarPermissions(
+        managedCalendars,
+        new UpdatePermissionCommand(item, user, newRole)
+        ) as ICalendar[];
       setManagedCalendars(updatedCalendars); // perhaps not needed, or can be replaced with reducer / slice deriving from calendars
       handleUpdateCalendar(updatedCalendars.filter((cal) => cal.id === item.id)[0])
     }
   };
 
-/** Update user permissions for a calendar or task of the current user
- *  TODO: replace with permissionService and redux 
- * 
-*/
-const updateTaskOrCalendarPermissions = (itemToUpdate: ICalendar | ITask, userId: string, newRole: UserRole, managedItems: Array<ICalendar|ITask>) => 
-{   
-    //TODO ? : replace with the reduce updateTask.. perhaps call setManagedTasks(updatedTasks); after update of redux store
-    const updatedItems = managedItems.map((item) => {
-      if (item.id === itemToUpdate.id) {
-        let existingPermission = item.permissions.find((perm) => perm.userId === userId);
-  
-        if (!existingPermission) {
-          const user = users.filter((user) => user.id === userId)[0];
-          const updatedPermissions = item.permissions.concat({ 
-            userId: user.id, userName: user.name, role: newRole 
-          });
-
-          return {
-            ...item,
-            permissions: updatedPermissions,
-          };
-        }
-
-        if (existingPermission) {
-          const updatedPermissions = item.permissions.filter((perm) => perm.userId !== userId);
-
-          if(newRole !== UserRole.None) // remove permission if role is None
-            updatedPermissions.push({ ...existingPermission, role: newRole });
-  
-          return {
-            ...item,
-            permissions: updatedPermissions,
-          };
-        }
-      }
-      return item;
-    });
-  
-    return updatedItems; 
-    
-  };
   
 
   //const calendars = useSelector((state: RootState) => state.calendars);
@@ -117,6 +89,7 @@ const updateTaskOrCalendarPermissions = (itemToUpdate: ICalendar | ITask, userId
     dispatch(updateCalendar(updatedCalendar));
   };
 
+  
   return (
     <Container>
       
@@ -139,8 +112,9 @@ const updateTaskOrCalendarPermissions = (itemToUpdate: ICalendar | ITask, userId
               <TableCell>{user.name}</TableCell>
               <TableCell>
                 <Select
-                  value={item.permissions.find((perm) => perm.userId === user.id)?.role || ''}
-                  onChange={(event) => handleRoleChange(user.id, event)}
+                  disabled={user.id === item.ownerId}
+                  value={item.permissions?.find((perm) => perm.userId === user.id)?.role || ''}
+                  onChange={(event) => handleRoleChange(user, event)}
                 >
                   <option value={UserRole.None}>None</option>
                   <option value={UserRole.VIEWER}>Viewer</option>
@@ -150,6 +124,7 @@ const updateTaskOrCalendarPermissions = (itemToUpdate: ICalendar | ITask, userId
               </TableCell>
               <TableCell>
               <ShareButton onClick={handleShare}>Share</ShareButton>
+              <ShareButton onClick={handleTransferOwnership}>Transfer</ShareButton>
               </TableCell>
             </tr>
           ))}

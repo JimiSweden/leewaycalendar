@@ -37,6 +37,7 @@ const TaskList: FC<TaskListProps> = ({ tasks}) => {
       <List>
         {tasks.map((task) => (
          <TasksAndPermissionManagementWrapper key={`taskItemWrapper-${task.id}`}>
+          {/* <div> */}
           <TaskListItem key={task.id}>
             <h3>{task.title} - {task.description}</h3>
             <Button onClick={() => onShowInCalendar(task.id)}>Show in Calendar</Button>
@@ -49,6 +50,7 @@ const TaskList: FC<TaskListProps> = ({ tasks}) => {
               ))}
             </ul>
           </TaskListItem>
+          {/* </div> */}
           {managedTasks.includes(task) && <PermissionManagement item={task} />}
           </TasksAndPermissionManagementWrapper>
         ))}

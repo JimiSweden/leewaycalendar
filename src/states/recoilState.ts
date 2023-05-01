@@ -1,10 +1,7 @@
 import { atom } from "recoil";
-import { ICalendar, ITask } from "../components/Calendar";
+import { IUser, ICalendar, ITask } from "../components/types";
 
-export interface IUser {
-  id: string;
-  name: string;
-}
+
 
 /** all users available to select for the current user */
 export const usersState = atom<IUser[]>({

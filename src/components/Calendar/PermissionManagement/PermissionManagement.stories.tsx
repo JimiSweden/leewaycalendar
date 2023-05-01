@@ -2,7 +2,7 @@
 //import CalendarPermissionManagement from './CalendarPermissionManagement';
 
 import { RecoilRoot, useRecoilState } from "recoil";
-import { calendars, users as mockedUsers} from "../../../services/apiMockData";
+import { calendars, users as mockedUsers} from "../../../states/apiMockData";
 import PermissionManagement from "./PermissionManagement";
 import { usersState } from "../../../states/recoilState";
 

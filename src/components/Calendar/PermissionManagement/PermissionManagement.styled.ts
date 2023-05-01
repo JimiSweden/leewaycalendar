@@ -4,10 +4,14 @@ import styled from 'styled-components';
 // `;
 
 export const Container = styled.div`
-  width: 100%;
+  /* width: 100%; */
+  /* min-width: 550px; */
+  /* min-width: 450px; */
+  min-width: 400px;
 `;
 
 export const ShareButton = styled.button`
+  margin-right: 0.5rem;
   background-color: #007bff;
   color: white;
   border: none;
@@ -30,6 +34,7 @@ export const SharedLink = styled.div`
 
 export const Table = styled.table`
   width: 100%;
+  /* width: fit-content; */
   border-collapse: collapse;
   margin-top: 16px;
 `;

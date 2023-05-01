@@ -21,6 +21,12 @@ therefore the component RecoilDebugObserver.ts us used in the index.ts file (bel
 
 for Redux debugging use chrome/firefox extension "Redux DevTools"
 
+## Serializable data and Redux 
+Note: creating data from typescript Classes is not working /recommended when using the data in redux store since the data is not serializable.
+- https://redux.js.org/faq/organizing-state#can-i-put-functions-promises-or-other-non-serializable-items-in-my-store-state
+- https://redux.js.org/tutorials/essentials/part-6-performance-normalization#normalizing-data
+
+
 # Storybook (visual testing of components, pages etc)
 
 to run storybook 

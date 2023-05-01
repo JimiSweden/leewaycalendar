@@ -5,7 +5,7 @@ import rootReducer from '../src/states/reducers';
 import { configureStore } from '@reduxjs/toolkit';
 
 import { ICalendar, ITask } from '../src/components/Calendar';
-import { IUser } from '../src/states/recoilState';
+import { IUser } from '../src/components/types';
 
 import { setUsers } from '../src/states/reducers/usersReducer';
 import { setTasks } from '../src/states/reducers/tasksReducer';
@@ -15,7 +15,7 @@ import {
     tasks as tasksMocked,
     users as usersMocked,
     calendars as calendarsMocked,
-} from '../src/services/apiMockData';
+} from '../src/states/apiMockData';
 
 
 /**

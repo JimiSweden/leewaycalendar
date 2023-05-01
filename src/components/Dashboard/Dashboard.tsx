@@ -1,33 +1,22 @@
-// Dashboard.tsx
-import React, { useState } from 'react';
-import { ICalendar } from '../Calendar';
-import { ITask } from '../Calendar';
+import React from 'react';
+import { IUser, ICalendar, ITask } from '../types';
 
 import {
-    DashboardContainer,
     Title,
     List,
     ListItem,
     EnvironmentMessage,
     DashboardWrapper,
-    PermissionManagementWrapper,
-    TasksAndPermissionManagementWrapper,
 } from './Dashboard.styled';
-import { IUser, tasksWherePermissionIsBeingManaged } from '../../states/recoilState';
+
 import TaskList from './TaskList/TaskList';
 import CalendarList from './CalendarList/CalendarList';
-import PermissionManagement from '../Calendar/PermissionManagement/PermissionManagement';
-import { useRecoilState, useRecoilValue } from 'recoil';
 
 interface DashboardProps {
     user: IUser;
     calendars: ICalendar[];
     tasks: ITask[];
 }
-const onShowInCalendar = (taskId: string) => 
-   console.log('Task > onShowInCalendar', taskId);
-const onInviteUsers = (taskId: string) => 
-   console.log('Task > onInviteUsers', taskId);
 
 const onOpenCalendar = (calendarId: string) =>
     console.log('Calendar > onOpenCalendar', calendarId);
@@ -35,24 +24,19 @@ const onShareCalendar = (calendarId: string) =>
     console.log('Calendar > onShareCalendar', calendarId);
 
 const Dashboard: React.FC<DashboardProps> = ({ user, calendars, tasks }) => {
-    
-   const userCalendars = calendars.filter(calendar =>
-        calendar.permissions.some(permission => permission.userId === user.id)
+   
+    const calendarsUserOwns = calendars.filter(calendar => calendar.ownerId === user.id);
+
+    const calendarsUserHasPermissionTo = calendars.filter(calendar =>
+        calendar.permissions.some(permission => permission.userId === user.id)        
     );
     
-    const userTasks = tasks.filter(task =>
+    // const tasksUserOwns = tasks.filter(task => task.ownerId == user.id);
+    
+
+    const tasksUserHasPermissionTo = tasks.filter(task =>
         task.permissions.map(p => p.userId).includes(user.id)
     );
-
-   //  const [showPermissionManagement, setShowPermissionManagement] = useState(false);
-   //  const onInviteUsers = () => {
-   //    setShowPermissionManagement(!showPermissionManagement);
-   //  };
-
-//   const [managedTasks] = useRecoilState(tasksWherePermissionIsBeingManaged);
-//   let managedTasksOrdered = managedTasks?.slice().sort((a, b) => a.title.localeCompare(b.title));
-    
-
     return (
         <DashboardWrapper>
             <EnvironmentMessage>
@@ -62,27 +46,19 @@ const Dashboard: React.FC<DashboardProps> = ({ user, calendars, tasks }) => {
             </EnvironmentMessage>
             <Title>Your Calendars</Title>
             <List>
-                {userCalendars.map(calendar => (
+                {calendarsUserOwns.map(calendar => (
                     <ListItem key={calendar.id}>{calendar.name}</ListItem>
                 ))}
             </List>
             {/* TODO ? : pass userId and let CalendarList fetch calendars - from recoilState*/}
             <CalendarList
-                calendars={userCalendars}
+                calendars={calendarsUserHasPermissionTo}
                 onOpenCalendar={onOpenCalendar}
                 onShareCalendar={onShareCalendar}
             ></CalendarList>
-
-            {/* <TasksAndPermissionManagementWrapper> */}
             <TaskList
-                tasks={userTasks}
+                tasks={tasksUserHasPermissionTo}
             ></TaskList>
-            {/* <PermissionManagementWrapper>
-               {managedTasksOrdered.map((task) => (
-                  <PermissionManagement key={task.id} item={task} />
-               ))}
-               </PermissionManagementWrapper> */}
-            {/* </TasksAndPermissionManagementWrapper> */}
         </DashboardWrapper>
     );
 };

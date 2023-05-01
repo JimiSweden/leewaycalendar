@@ -8,7 +8,7 @@ import store from '../../../states/store';
 import { 
   tasks as tasksMocked, 
   users as usersMocked,
-} from '../../../services/apiMockData';
+} from '../../../states/apiMockData';
 
 import TaskList from './TaskList';
 
