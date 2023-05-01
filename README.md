@@ -15,6 +15,12 @@ npx generate-react-cli component MyService --type=service
 also look at this description for setting up custom templates
 https://github.com/arminbro/generate-react-cli#example-of-using-the-customtemplates-object-within-your-generate-react-clijson-config-file 
 
+# Stores and States (Recoil and Redux)
+debugging recoil in chrome is possible using https://github.com/open-source-labs/Recoilize , however it only supports React v16 at the moment.
+therefore the component RecoilDebugObserver.ts us used in the index.ts file (below RecoilRoot) to display atom (i.e. state) changes
+
+for Redux debugging use chrome/firefox extension "Redux DevTools"
+
 # Storybook (visual testing of components, pages etc)
 
 to run storybook 

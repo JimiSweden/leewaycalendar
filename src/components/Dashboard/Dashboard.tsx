@@ -58,6 +58,7 @@ const Dashboard: React.FC<DashboardProps> = ({ user, calendars, tasks }) => {
             <EnvironmentMessage>
                 You are running this application in{' '}
                 <b>{process.env.NODE_ENV}</b> mode.
+                <div>SHOW_RECOIL_DEBUGGER : {process.env.REACT_APP_SHOW_RECOIL_DEBUGGER}</div>
             </EnvironmentMessage>
             <Title>Your Calendars</Title>
             <List>

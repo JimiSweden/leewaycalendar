@@ -7,7 +7,8 @@ import { Provider } from "react-redux";
 import store from "./states/store";
 
 import {  RecoilRoot} from 'recoil';
-
+import { RecoilDebugObserver } from './states/RecoilDebugObserver';
+// import 'recoilize'; //needed for debugging in browser
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
@@ -15,6 +16,7 @@ root.render(
   <React.StrictMode>
      <Provider store={store}>
       <RecoilRoot>
+     {process.env.NODE_ENV !== 'production' && process.env.REACT_APP_SHOW_RECOIL_DEBUGGER &&  <RecoilDebugObserver />  }
       <App />
       </RecoilRoot>
     </Provider>

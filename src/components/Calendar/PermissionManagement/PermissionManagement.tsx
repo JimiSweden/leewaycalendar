@@ -64,12 +64,8 @@ const PermissionManagement: React.FC<PermissionManagementProps> = ({ item }) => 
  * 
 */
 const updateTaskOrCalendarPermissions = (itemToUpdate: ICalendar | ITask, userId: string, newRole: UserRole, managedItems: Array<ICalendar|ITask>) => 
-{
-        
-  //const itemI = item.hasOwnProperty("name") ? (item as ICalendar).name : (item as ITask).title;
-
-    
-    //TODO: replace with the redure updateTask.. perhaps call setManagedTasks(updatedTasks); after
+{   
+    //TODO ? : replace with the reduce updateTask.. perhaps call setManagedTasks(updatedTasks); after update of redux store
     const updatedItems = managedItems.map((item) => {
       if (item.id === itemToUpdate.id) {
         let existingPermission = item.permissions.find((perm) => perm.userId === userId);
@@ -150,68 +146,3 @@ const updateTaskOrCalendarPermissions = (itemToUpdate: ICalendar | ITask, userId
 };
 
 export default PermissionManagement;
-
-
-
-// import React, { useState } from 'react';
-// import { Calendar, Task } from './Calendar';
-// import { User } from './User';
-// import { UserRole } from './UserRole';
-// import { share, updateUserPermissions } from './UserManagement';
-
-// interface PermissionManagementProps {
-//   item: Calendar | Task;
-//   users: User[];
-// }
-
-// const PermissionManagement: React.FC<PermissionManagementProps> = ({ item, users }) => {
-//   const [sharedLink, setSharedLink] = useState('');
-
-//   const handleShare = () => {
-//     const link = share(item);
-//     setSharedLink(link);
-//   };
-
-//   const handleRoleChange = (userId: string, event: React.ChangeEvent<HTMLSelectElement>) => {
-//     const newRole = event.target.value as UserRole;
-//     updateUserPermissions(item, userId, newRole);
-//   };
-
-//   return (
-//     <div>
-//       <button onClick={handleShare}>Share</button>
-//       {sharedLink && <div>Shared link: {sharedLink}</div>}
-//       <h2>User Permissions</h2>
-//       <table>
-//         <thead>
-//           <tr>
-//             <th>User</th>
-//             <th>Role</th>
-//           </tr>
-//         </thead>
-//         <tbody>
-//           {users.map((user) => (
-//             <tr key={user.id}>
-//               <td>{user.name}</td>
-//               <td>
-//                 <select
-//                   value={item.permissions.find((perm) => perm.userId === user.id)?.role || ''}
-//                   onChange={(event) => handleRoleChange(user.id, event)}
-//                 >
-//                   <option value="">None</option>
-//                   <option value={UserRole.VIEWER}>Viewer</option>
-//                   <option value={UserRole.CONTRIBUTOR}>Contributor</option>
-//                   <option value={UserRole.ADMINISTRATOR}>Administrator</option>
-//                 </select>
-//               </td>
-//             </tr>
-//           ))}
-//         </tbody>
-//       </table>
-//     </div>
-//   );
-// };
-
-// export default PermissionManagement;
-
-

@@ -1,13 +1,37 @@
 {
+  //original tsconfig from "react create app"
+  // "compilerOptions": {
+  //   "target": "es5",
+  //   "lib": [
+  //     "dom",
+  //     "dom.iterable",
+  //     "esnext"
+  //   ],
+  //   "allowJs": true,
+  //   "skipLibCheck": false,
+  //   "esModuleInterop": true,
+  //   "allowSyntheticDefaultImports": true,
+  //   "strict": true,
+  //   "forceConsistentCasingInFileNames": true,
+  //   "noFallthroughCasesInSwitch": true,
+  //   "module": "esnext",
+  //   "moduleResolution": "node",
+  //   "resolveJsonModule": true,
+  //   "isolatedModules": true,
+  //   "noEmit": true,
+  //   "jsx": "react-jsx"
+  // },
   "compilerOptions": {
-    "target": "es5",
+    "target": "es2020",
     "lib": [
       "dom",
-      "dom.iterable",
       "esnext"
     ],
     "allowJs": true,
-    "skipLibCheck": true,
+    "skipLibCheck": false, //setting this to false will show errors in node_modules,  
+    //Consider setting "skipLibCheck" to false if you are using third-party libraries with TypeScript definitions. 
+    //This will help you catch type errors in those libraries. 
+    //However, if you encounter performance issues during the type-checking process, set it back to true.
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "strict": true,
@@ -18,8 +42,10 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react-jsx"
+    "jsx": "react-jsx",
+    "jsxImportSource": "react" //Add "jsxImportSource": "react" to use the new JSX transform introduced in React 17, which allows you to use JSX without importing React explicitly.
   },
+  
   "include": [
     "src"
   ]

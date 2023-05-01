@@ -12,7 +12,7 @@ const UserManagement: FC<UserManagementProps> = () => (
 );
 
 export default UserManagement;
-const BaseUrl = process.env.APP_BASE_URL;
+const BaseUrl = process.env.REACT_APP_APP_BASE_URL;
 
 /** share a calendar or task using a UUID */
 export function share(item: ICalendar | ITask): string {
