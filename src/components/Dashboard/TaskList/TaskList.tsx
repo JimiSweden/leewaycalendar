@@ -2,18 +2,14 @@
 // export default DashboardTaskList;
 import React, { FC } from 'react';
 import { ITask } from '../../Calendar';
-import { TaskListWrapper, TaskListItem, Button, List } from './TaskList.styled';
+import { TaskListWrapper, TaskListItem, Button, List, TasksAndPermissionManagementWrapper } from './TaskList.styled';
 import { useRecoilState } from 'recoil';
 import { tasksWherePermissionIsBeingManaged } from '../../../states/recoilState';
+import PermissionManagement from '../../Calendar/PermissionManagement/PermissionManagement';
 
 
-interface TaskListProps {
-  tasks: ITask[];
-  onShowInCalendar?: (taskId: string) => void;
-  onInviteUsers?: (taskId: string) => void;
-}
+interface TaskListProps {  tasks: ITask[]; }
 
-// const TaskList: FC<TaskListProps> = ({ tasks, onShowInCalendar, onInviteUsers }) => {
 const TaskList: FC<TaskListProps> = ({ tasks}) => {
 
   const [managedTasks, setManagedTasks] = useRecoilState(tasksWherePermissionIsBeingManaged);
@@ -40,14 +36,12 @@ const TaskList: FC<TaskListProps> = ({ tasks}) => {
       <h2>Tasks</h2>
       <List>
         {tasks.map((task) => (
+         <TasksAndPermissionManagementWrapper key={`taskItemWrapper-${task.id}`}>
           <TaskListItem key={task.id}>
-            {task.title} - {task.description}
+            <h3>{task.title} - {task.description}</h3>
             <Button onClick={() => onShowInCalendar(task.id)}>Show in Calendar</Button>
             <Button onClick={() => onInviteUsers(task.id)}>Invite user(s)</Button>
             <ul>
-               {/* TODO: user name from UserPermission 
-               - and perhaps a userPersmission component to reuse*/}
-
               {task.permissions.map((permission) => (
                 <li key={`${task.id}-${permission.userId}`}>
                   {permission.userId} - {permission.role} - {permission.userName}
@@ -55,6 +49,8 @@ const TaskList: FC<TaskListProps> = ({ tasks}) => {
               ))}
             </ul>
           </TaskListItem>
+          {managedTasks.includes(task) && <PermissionManagement item={task} />}
+          </TasksAndPermissionManagementWrapper>
         ))}
       </List>
     </TaskListWrapper>

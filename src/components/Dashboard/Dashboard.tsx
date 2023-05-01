@@ -49,8 +49,8 @@ const Dashboard: React.FC<DashboardProps> = ({ user, calendars, tasks }) => {
    //    setShowPermissionManagement(!showPermissionManagement);
    //  };
 
-  const [managedTasks] = useRecoilState(tasksWherePermissionIsBeingManaged);
-  let managedTasksOrdered = managedTasks?.slice().sort((a, b) => a.title.localeCompare(b.title));
+//   const [managedTasks] = useRecoilState(tasksWherePermissionIsBeingManaged);
+//   let managedTasksOrdered = managedTasks?.slice().sort((a, b) => a.title.localeCompare(b.title));
     
 
     return (
@@ -73,31 +73,16 @@ const Dashboard: React.FC<DashboardProps> = ({ user, calendars, tasks }) => {
                 onShareCalendar={onShareCalendar}
             ></CalendarList>
 
-            <TasksAndPermissionManagementWrapper>
-               
-            
-            {/* <Title>Your Tasks</Title> */}
-            {/* <List>
-                {userTasks.map(task => (
-                    <ListItem key={task.id}>
-                     {task.title}
-                     </ListItem>
-                ))}
-            </List> */}
-
-            {/* TODO ? : pass userId and let TaskList fetch tasks - from recoilState*/}
+            {/* <TasksAndPermissionManagementWrapper> */}
             <TaskList
                 tasks={userTasks}
-               
             ></TaskList>
-            <PermissionManagementWrapper>
+            {/* <PermissionManagementWrapper>
                {managedTasksOrdered.map((task) => (
                   <PermissionManagement key={task.id} item={task} />
                ))}
-               </PermissionManagementWrapper>
-
-            {/* {showPermissionManagement && <PermissionManagement item={undefined} users={[]} />} */}
-            </TasksAndPermissionManagementWrapper>
+               </PermissionManagementWrapper> */}
+            {/* </TasksAndPermissionManagementWrapper> */}
         </DashboardWrapper>
     );
 };
