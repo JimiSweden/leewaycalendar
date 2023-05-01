@@ -70,9 +70,23 @@ const updateTaskOrCalendarPermissions = (itemToUpdate: ICalendar | ITask, userId
       if (item.id === itemToUpdate.id) {
         let existingPermission = item.permissions.find((perm) => perm.userId === userId);
   
+        if (!existingPermission) {
+          const user = users.filter((user) => user.id === userId)[0];
+          const updatedPermissions = item.permissions.concat({ 
+            userId: user.id, userName: user.name, role: newRole 
+          });
+
+          return {
+            ...item,
+            permissions: updatedPermissions,
+          };
+        }
+
         if (existingPermission) {
           const updatedPermissions = item.permissions.filter((perm) => perm.userId !== userId);
-          updatedPermissions.push({ ...existingPermission, role: newRole });
+
+          if(newRole !== UserRole.None) // remove permission if role is None
+            updatedPermissions.push({ ...existingPermission, role: newRole });
   
           return {
             ...item,
@@ -128,7 +142,7 @@ const updateTaskOrCalendarPermissions = (itemToUpdate: ICalendar | ITask, userId
                   value={item.permissions.find((perm) => perm.userId === user.id)?.role || ''}
                   onChange={(event) => handleRoleChange(user.id, event)}
                 >
-                  <option value="">None</option>
+                  <option value={UserRole.None}>None</option>
                   <option value={UserRole.VIEWER}>Viewer</option>
                   <option value={UserRole.CONTRIBUTOR}>Contributor</option>
                   <option value={UserRole.ADMINISTRATOR}>Administrator</option>
